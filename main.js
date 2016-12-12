@@ -38,4 +38,5 @@ function update() {
   // ball.x += 1;
   // ball.y += 1;
   game.physics.arcade.collide(ball, paddle);
+  paddle.x = game.input.x || game.world.width * 0.5;
 }
