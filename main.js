@@ -93,4 +93,15 @@ function ballHitBrick(ball, brick) { // How does the engine know which brick the
   brick.kill();
   score += 10;
   scoreText.setText('Points: ' + score);
+
+  var count_alive = 0;
+  for (i = 0; i < bricks.children.length; i++) {
+    if (bricks.children[i].alive === true) {
+      count_alive++; // Not efficient code. Resets counter to zero and count the total number of bricks left, each time ball hits a brick. 
+    }
+  }
+  if (count_alive === 0) {
+    alert('You won the game, congratulations!');
+    location.reload();
+  }
 }
