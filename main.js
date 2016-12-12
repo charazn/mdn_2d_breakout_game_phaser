@@ -20,15 +20,20 @@ function preload() {
 
 function create() {
   game.physics.startSystem(Phaser.Physics.ARCADE);
-  // ball = game.add.sprite(50, 50, 'ball');
-  ball = game.add.sprite(game.world.width * 0.5, game.world.height - 50, 'ball');
+  game.physics.arcade.checkCollision.down = false;
+  ball = game.add.sprite(game.world.width * 0.5, game.world.height - 50, 'ball'); // From ball = game.add.sprite(50, 50, 'ball');
   ball.anchor.set(0.5);
   game.physics.enable(ball, Phaser.Physics.ARCADE);
-  ball.body.collideWorldBounds = true;
-  // Tell the framework that we want to treat the boundaries of the <canvas> element as walls and not let the ball move past them.
-  ball.body.bounce.set(1);
-  // To make ball baounce off wall, we have to set its bounciness.
+  
+  // For some reason, code below must be set AFTER game.physics.enable! 
   ball.body.velocity.set(150, -150); // From (150, 150)
+  ball.body.collideWorldBounds = true; // Tell the framework that we want to treat the boundaries of the <canvas> element as walls and not let the ball move past them.
+  ball.body.bounce.set(1); // To make ball baounce off wall, we have to set its bounciness.
+  ball.checkWorldBounds = true; // This will make the ball check the world bounds 
+  ball.events.onOutOfBounds.add(function(){ // and execute the function bound to the onOutOfBounds event
+    alert('Game over!');
+    location.reload();
+  }, this);
 
   paddle = game.add.sprite(game.world.width * 0.5, game.world.height - 5, 'paddle');
   paddle.anchor.set(0.5, 1); // Mid-width of paddle, bottom of paddle
