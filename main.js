@@ -11,8 +11,11 @@ function preload() {
   game.scale.pageAlignVertically = true;
   // These two lines of code in the preload() function are responsible for aligning the canvas element horizontally and vertically, so it is always centered on screen regardless of size.
   game.stage.backgroundColor = '#eee';
+  game.load.image('ball', 'ball.png');
 }
 
-function create() {}
+function create() {
+  ball = game.add.sprite(50, 50, 'ball');
+}
 
 function update() {}
