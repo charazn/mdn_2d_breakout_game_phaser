@@ -18,6 +18,10 @@ function create() {
   game.physics.startSystem(Phaser.Physics.ARCADE);
   ball = game.add.sprite(50, 50, 'ball');
   game.physics.enable(ball, Phaser.Physics.ARCADE);
+  ball.body.collideWorldBounds = true;
+  // Tell the framework that we want to treat the boundaries of the <canvas> element as walls and not let the ball move past them.
+  ball.body.bounce.set(1);
+  // To make ball baounce off wall, we have to set its bounciness.
   ball.body.velocity.set(150, 150);
 }
 
