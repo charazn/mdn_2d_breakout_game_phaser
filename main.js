@@ -28,11 +28,14 @@ function create() {
   // To make ball baounce off wall, we have to set its bounciness.
   ball.body.velocity.set(150, 150);
 
-  paddle = game.add.sprite(game.world.width*0.5, game.world.height-5, 'paddle');
+  paddle = game.add.sprite(game.world.width * 0.5, game.world.height - 5, 'paddle');
   paddle.anchor.set(0.5, 1); // Mid-width of paddle, bottom of paddle
+  game.physics.enable(paddle, Phaser.Physics.ARCADE);
+  paddle.body.immovable = true;
 }
 
 function update() {
   // ball.x += 1;
   // ball.y += 1;
+  game.physics.arcade.collide(ball, paddle);
 }
