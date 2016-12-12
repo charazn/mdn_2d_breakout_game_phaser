@@ -11,6 +11,9 @@ var newBrick; // newBrick will be a new object added to the group on every itera
 var brickInfo; // brickInfo will store all the data we need
 var scoreText;
 var score = 0;
+var lives = 3;
+var livesText;
+var lifeLostText;
 
 function preload() {
   game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
@@ -48,7 +51,14 @@ function create() {
 
   initBricks();
 
-  scoreText = game.add.text(5, 5, 'Points: 0', { font: '18px Arial', fill: '#0095DD' });
+  textStyle = { font: '18px Arial', fill: '#0095DD' };  
+  scoreText = game.add.text(5, 5, 'Points: 0', textStyle);
+
+  livesText = game.add.text(game.world.width - 5, 5, 'Lives: ' + lives, textStyle); // Set at 5px from top right corner 
+  livesText.anchor.set(1, 0); // Refers to Right 1, Top 0 
+  lifeLostText = game.add.text(game.world.width * 0.5, game.world.height * 0.5, 'Life lost, click to continue', textStyle); // Insert text in the middle of the canvas
+  lifeLostText.anchor.set(0.5); // Center the text
+  lifeLostText.visible = false;
 }
 
 function update() {
