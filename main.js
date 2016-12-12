@@ -9,6 +9,8 @@ var paddle;
 var bricks; // The bricks variable will be used to create a group
 var newBrick; // newBrick will be a new object added to the group on every iteration of the loop
 var brickInfo; // brickInfo will store all the data we need
+var scoreText;
+var score = 0;
 
 function preload() {
   game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
@@ -45,6 +47,8 @@ function create() {
   paddle.body.immovable = true;
 
   initBricks();
+
+  scoreText = game.add.text(5, 5, 'Points: 0', { font: '18px Arial', fill: '#0095DD' });
 }
 
 function update() {
@@ -87,4 +91,6 @@ function initBricks() {
 
 function ballHitBrick(ball, brick) { // How does the engine know which brick the ball is colliding with?
   brick.kill();
+  score += 10;
+  scoreText.setText('Points: ' + score);
 }
