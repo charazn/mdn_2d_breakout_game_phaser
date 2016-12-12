@@ -51,6 +51,7 @@ function update() {
   // ball.x += 1;
   // ball.y += 1;
   game.physics.arcade.collide(ball, paddle);
+  game.physics.arcade.collide(ball, bricks, ballHitBrick); // See function and question below 
   paddle.x = game.input.x || game.world.width * 0.5;
 }
 
@@ -82,4 +83,8 @@ function initBricks() {
       bricks.add(newBrick);
     }
   }
+}
+
+function ballHitBrick(ball, brick) { // How does the engine know which brick the ball is colliding with?
+  brick.kill();
 }
