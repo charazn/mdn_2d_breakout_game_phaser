@@ -25,12 +25,19 @@ function preload() {
   game.load.image('ball', 'ball.png');
   game.load.image('paddle', 'paddle.png');
   game.load.image('brick', 'brick.png');
+  game.load.spritesheet('ball', 'wobble.png', 20, 20);
 }
 
 function create() {
   game.physics.startSystem(Phaser.Physics.ARCADE);
   game.physics.arcade.checkCollision.down = false;
   ball = game.add.sprite(game.world.width * 0.5, game.world.height - 50, 'ball'); // From ball = game.add.sprite(50, 50, 'ball'); and from -25
+  ball = game.add.sprite(50, 250, 'ball');
+  ball.animations.add('wobble', [0, 1, 0, 2, 0, 1, 0, 2, 0], 24);
+  // The animations.add() method contains the following parameters:
+  // The name we chose for the animation
+  // An array defining the order in which to display the frames during the animation. If you look again at the wobble.png image, you'll see there are three frames. Phaser extracts these and stores references them in an array — positions 0, 1, and 2. The above array says that we are displaying frame 0, then 1, then 0, etc.
+  // The framerate, in fps. Since we are running the animation at 24fps and there are 9 frames, the animation will display just under three times per second.
   ball.anchor.set(0.5);
   game.physics.enable(ball, Phaser.Physics.ARCADE);
 
