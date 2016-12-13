@@ -83,7 +83,9 @@ function update() {
   // ball.y += 1;
   game.physics.arcade.collide(ball, paddle, ballHitPaddle);
   game.physics.arcade.collide(ball, bricks, ballHitBrick); // See function and question below 
-  paddle.x = game.input.x || game.world.width * 0.5;
+  if (playing) {
+    paddle.x = game.input.x || game.world.width * 0.5;
+  }
 }
 
 function initBricks() {
