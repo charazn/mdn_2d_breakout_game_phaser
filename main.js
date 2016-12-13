@@ -22,17 +22,17 @@ function preload() {
   game.scale.pageAlignVertically = true;
   // These two lines of code in the preload() function are responsible for aligning the canvas element horizontally and vertically, so it is always centered on screen regardless of size.
   game.stage.backgroundColor = '#eee';
-  game.load.image('ball', 'ball.png');
+  // game.load.image('ball', 'ball.png');
+  game.load.spritesheet('ball', 'wobble.png', 20, 20);
   game.load.image('paddle', 'paddle.png');
   game.load.image('brick', 'brick.png');
-  game.load.spritesheet('ball', 'wobble.png', 20, 20);
 }
 
 function create() {
   game.physics.startSystem(Phaser.Physics.ARCADE);
   game.physics.arcade.checkCollision.down = false;
+  // ball = game.add.sprite(50, 250, 'ball');
   ball = game.add.sprite(game.world.width * 0.5, game.world.height - 50, 'ball'); // From ball = game.add.sprite(50, 50, 'ball'); and from -25
-  ball = game.add.sprite(50, 250, 'ball');
   ball.animations.add('wobble', [0, 1, 0, 2, 0, 1, 0, 2, 0], 24);
   // The animations.add() method contains the following parameters:
   // The name we chose for the animation
