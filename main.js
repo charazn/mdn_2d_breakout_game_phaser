@@ -106,7 +106,15 @@ function initBricks() {
 
 function ballHitBrick(ball, brick) { // How does the engine know which brick the ball is colliding with?
   ball.animations.play('wobble');
-  brick.kill();
+  var killTween = game.add.tween(brick.scale); // We use the add.tween() method instead of hiding the bricks instantly when hit by the ball, we will make their width and height scale to zero, so they will nicely disapear. 
+  killTween.to({ x: 0, y: 0 }, 200, Phaser.Easing.Linear.None); // The to() method defines the state of the object at the end of the tween. It takes an object  containing the chosen parameter's desired ending values (scale takes a scale value, 1 being 100% of size, 0 being 0% of size, etc.), the time of the tween in milliseconds and the type of easing to use for the tween.
+  killTween.onComplete.addOnce(function () {
+    brick.kill();
+  }, this);
+  killTween.start();
+  // game.add.tween(brick.scale).to({x:2,y:2}, 500, Phaser.Easing.Elastic.Out, true, 100); // Shorthand for above, this tween will double the brick's scale in half a second using Elastic easing, will start automatically, and have a delay of 100 miliseconds.
+
+
   score += 10;
   scoreText.setText('Points: ' + score);
 
