@@ -117,14 +117,17 @@ function ballHitBrick(ball, brick) { // How does the engine know which brick the
 
   score += 10;
   scoreText.setText('Points: ' + score);
-
-  var count_alive = 0;
-  for (i = 0; i < bricks.children.length; i++) {
-    if (bricks.children[i].alive === true) {
-      count_alive++; // Not efficient code. Resets counter to zero and count the total number of bricks left, each time ball hits a brick. 
-    }
-  }
-  if (count_alive === 0) {
+  // var count_alive = 0;
+  // for (i = 0; i < bricks.children.length; i++) {
+  //   if (bricks.children[i].alive === true) {
+  //     count_alive++; // Not efficient code. Resets counter to zero and count the total number of bricks left, each time ball hits a brick. 
+  //   } 
+  // } // Bug here. Because last brick to hit leaves a count_alive of 1, it will remain 1 because there is no more bricks to hit, as the count_alive = 0 is set only when the ball hits the bricks.
+  // if (count_alive === 0) { 
+  //   alert('You won the game, congratulations!');
+  //   location.reload();
+  // }
+  if (score === brickInfo.count.row * brickInfo.count.col * 10) { // Replace above for winning condition, else player cannot win even after hitting all bricks
     alert('You won the game, congratulations!');
     location.reload();
   }
