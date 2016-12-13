@@ -14,6 +14,8 @@ var score = 0;
 var lives = 3;
 var livesText;
 var lifeLostText;
+var playing = false;
+var startButton;
 
 function preload() {
   game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
@@ -26,6 +28,7 @@ function preload() {
   game.load.spritesheet('ball', 'wobble.png', 20, 20);
   game.load.image('paddle', 'paddle.png');
   game.load.image('brick', 'brick.png');
+  game.load.spritesheet('button', 'button.png', 120, 40); // A single button frame is 120 pixels wide and 40 pixels high.
 }
 
 function create() {
@@ -42,7 +45,7 @@ function create() {
   game.physics.enable(ball, Phaser.Physics.ARCADE);
 
   // For some reason, code below must be set AFTER game.physics.enable! 
-  ball.body.velocity.set(150, -150); // From (150, 150)
+  // ball.body.velocity.set(150, -150); // From (150, 150) and control given to startGame() function
   ball.body.collideWorldBounds = true; // Tell the framework that we want to treat the boundaries of the <canvas> element as walls and not let the ball move past them.
   ball.body.bounce.set(1); // To make ball baounce off wall, we have to set its bounciness.
   ball.checkWorldBounds = true; // This will make the ball check the world bounds 
@@ -64,6 +67,15 @@ function create() {
   lifeLostText = game.add.text(game.world.width * 0.5, game.world.height * 0.5, 'Life lost, click to continue', textStyle); // Insert text in the middle of the canvas
   lifeLostText.anchor.set(0.5); // Center the text
   lifeLostText.visible = false;
+
+  startButton = game.add.button(game.world.width * 0.5, game.world.height * 0.5, 'button', startGame, this, 1, 0, 2);
+  startButton.anchor.set(0.5);
+  // The button() method's parameters are as follows:
+  // The button's x and y coordinates
+  // The name of the graphic asset to be displayed for the button
+  // A callback function that will be executed when the button is pressed
+  // A reference to this to specify the execution context
+  // The frames that will be used for the over, out and down events. Note: The over event is the same as hover, out is when the pointer moves out of the button and down is when the button is pressed.
 }
 
 function update() {
@@ -152,4 +164,10 @@ function ballLeaveScreen() {
 
 function ballHitPaddle(ball, paddle) {
   ball.animations.play('wobble');
+}
+
+function startGame() {
+  startButton.destroy();
+  ball.body.velocity.set(150, -150);
+  playing = true;
 }
