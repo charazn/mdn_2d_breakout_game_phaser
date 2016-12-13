@@ -69,7 +69,7 @@ function create() {
 function update() {
   // ball.x += 1;
   // ball.y += 1;
-  game.physics.arcade.collide(ball, paddle);
+  game.physics.arcade.collide(ball, paddle, ballHitPaddle);
   game.physics.arcade.collide(ball, bricks, ballHitBrick); // See function and question below 
   paddle.x = game.input.x || game.world.width * 0.5;
 }
@@ -105,6 +105,7 @@ function initBricks() {
 }
 
 function ballHitBrick(ball, brick) { // How does the engine know which brick the ball is colliding with?
+  ball.animations.play('wobble');
   brick.kill();
   score += 10;
   scoreText.setText('Points: ' + score);
@@ -136,4 +137,8 @@ function ballLeaveScreen() {
     alert('You lost, game over!');
     location.reload();
   }
+}
+
+function ballHitPaddle(ball, paddle) {
+  ball.animations.play('wobble');
 }
